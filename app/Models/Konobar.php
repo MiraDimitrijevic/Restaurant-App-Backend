@@ -31,4 +31,8 @@ class Konobar extends Authenticatable
     public function porudzbinas(){
         return $this->hasMany(Porudzbina::class);
     }
+
+    public function nadredjeni(){
+        return $this->belongsTo(Menadzer::class, 'nadredjeni_id');
+    }
 }

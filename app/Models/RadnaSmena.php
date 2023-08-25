@@ -19,6 +19,6 @@ class RadnaSmena extends Model
     ];
 
     public function konobar(){
-        $this->belongsTo(Konobar::class, 'konobar_id');
+      return  $this->belongsTo(Konobar::class, 'konobar_id');
     }
 }

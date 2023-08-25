@@ -12,13 +12,13 @@ class StavkaMenija extends Model
         'naziv',
         'cena',
         'opsirnije',
-        'napomena',
+        'napomene',
         'jedinicaMere',
         'vrstaStavkeMenija_id',
     ];
 
-    public function vrstaPica(){
-        return $this->belongsTo(vrstaStavkeMenija::class, 'vrstaStavkeMenija_id' );
+    public function vrstaStavkeMenija(){
+        return $this->belongsTo(VrstaStavkeMenija::class, 'vrstaStavkeMenija_id' );
     }
 
     public function stavkaPorudzbine(){
