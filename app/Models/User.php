@@ -24,7 +24,8 @@ class User extends Authenticatable
         'korisnickoIme',
         'brojTelefona',
         'email',
-        'password'
+        'password',
+        'userType'
     ];
 
     /**

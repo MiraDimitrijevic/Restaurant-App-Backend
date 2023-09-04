@@ -15,8 +15,8 @@ class CreateGostsTable extends Migration
     {
         Schema::create('gosts', function (Blueprint $table) {
             $table->id();
-            $table->boolean('imaPopust');
-            $table->double('zaduzenje');
+            $table->boolean('imaPopust')->default(false);
+            $table->double('zaduzenje')->default(0);
             $table->foreignId('user_id');
             $table->timestamps();
         });

@@ -16,13 +16,13 @@ class CreatePorudzbinasTable extends Migration
         Schema::create('porudzbinas', function (Blueprint $table) {
             $table->id();
             $table->double('ukupnaCena');
-            $table->boolean('placeno');
-            $table->boolean('saPopustom');
-            $table->double('popust');
+            $table->boolean('placeno')->default(false);
+            $table->boolean('saPopustom')->default(false);
+            $table->double('popust')->default(0);
             $table->dateTime('datumVremePorudzbine');
-            $table->foreignId('konobar_id');
+            $table->foreignId('konobar_id')->default(0);
             $table->foreignId('gost_id');
-            $table->foreignId('radna_smena_id');
+            $table->foreignId('radna_smena_id')->default(0);
             $table->timestamps();
         });
     }

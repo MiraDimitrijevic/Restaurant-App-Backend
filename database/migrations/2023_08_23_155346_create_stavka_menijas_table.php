@@ -19,7 +19,7 @@ class CreateStavkaMenijasTable extends Migration
             $table->double('cena');
             $table->text('opsirnije')->nullable();
             $table->text('napomene')->nullable();
-            $table->enum('jedinicaMere', array('g,ml,l,kg'));
+            $table->enum('jedinicaMere',['l','ml','g','kg']);
             $table->foreignId('vrstaStavkeMenija_id');
             $table->timestamps();
             

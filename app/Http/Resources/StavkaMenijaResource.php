@@ -24,7 +24,7 @@ class StavkaMenijaResource extends JsonResource
             'cena'=>$this->resource->cena,
             'opsirnije'=>$this->resource->opsirnije,
             'napomene'=>$this->resource->napomene,
-            'jm'=>$this->resource->jedinicaMere,
+            'jedinicaMere'=>$this->resource->jedinicaMere,
             'vrsta'=> new VrstaStavkeMenijaResource($this->resource->vrstaStavkeMenija)
 
         ];
