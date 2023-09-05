@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Porudzbina;
+use App\Models\StavkaMenija;
+use App\Models\StavkaPorudzbine;
 use Illuminate\Http\Request;
 use App\Http\Resources\PorudzbinaResource;
 use Illuminate\Support\Facades\Validator;
@@ -40,8 +42,21 @@ class PorudzbinaController extends Controller
      */
     public function store(Request $request)
     {
+         $ukupnaCena=0;
+         foreach($request->stavke as $stavka ){
+        $validator = Validator::make($stavka , [
+            'kolicina'=>'required|numeric|min:0|max:1000',
+            'stavka_menija_id'=>'required',
+        ]);
+           if ($validator->fails())
+            return response()->json($validator->errors());
+            $stavkaMenija=StavkaMenija::find($stavka["stavka_menija_id"]);
+            $iznos=$stavkaMenija->cena*$stavka["kolicina"];
+            $stavka["iznos"]=$iznos;
+            $ukupnaCena+=$stavka["iznos"];
+         }
+
         $validator = Validator::make($request->all() , [
-            'ukupnaCena'=>'required|numeric|min:0|max:100000',
             'gost_id'=>'required'
         ]);
 
@@ -51,13 +66,24 @@ class PorudzbinaController extends Controller
 
 
             $porudzbina=Porudzbina::create([
-                'ukupnaCena'=>$request->ukupnaCena,
+                'ukupnaCena'=>$ukupnaCena,
                 'datumVremePorudzbine'=>now(),
                 'gost_id'=>$request->gost_id
 
             ]);
 
-            return response()->json(['success'=>true,'porudzbina'=> new PorudzbinaResource($porudzbina)]);
+            foreach($request->stavke as $stavka){
+
+                StavkaPorudzbine::create([
+                    'kolicina'=>$stavka["kolicina"],
+                    'porudzbina_id'=>$porudzbina->id,
+                    'stavka_menija_id'=>$stavka["stavka_menija_id"],
+                    'iznos'=>$stavka["iznos"]
+                    
+                ]);
+            }
+
+            return response()->json(['success'=>true,'porudzbina_id'=>$porudzbina->id]);
 
     }
 

@@ -34,19 +34,26 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout']);
 Route::post('/gostRegister', [GostAuthController::class, 'register']);
-Route::post('/menadzerRegister', [MenadzerAuthController::class, 'register']);
-Route::post('/konobarRegister', [KonobarAuthController::class, 'register']);
 
 
-Route::resource('stavkaMenija', StavkaMenijaController::class)->only(['show', 'index','update', 'store','destroy']);
-Route::resource('vrstaStavkeMenija', VrstaStavkeMenijaController::class)->only(['show', 'index']);
-Route::resource('user', UserController::class)->only(['show', 'update']);
-Route::resource('gost', GostController::class)->only(['show', 'index','store','update']);
-Route::resource('menadzer', MenadzerController::class)->only(['show', 'index','store','update']);
-Route::resource('konobar', KonobarController::class)->only(['show', 'index','store','update']);
-Route::resource('radnaSmena', RadnaSmenaController::class)->only(['show', 'index','store','update']);
-Route::resource('porudzbina', PorudzbinaController::class)->only(['show', 'index','store','update','destroy']);
-Route::resource('stavkaPorudzbine', StavkaPorudzbineController::class)->only(['show', 'index','store','destroy']);
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/user', function (Request $request) {
+        return auth()->user();
 
+
+    });
+    Route::resource('stavkaMenija', StavkaMenijaController::class)->only(['show', 'index','update', 'store','destroy']);
+    Route::resource('vrstaStavkeMenija', VrstaStavkeMenijaController::class)->only(['show', 'index']);
+    Route::resource('user', UserController::class)->only(['show', 'update']);
+    Route::resource('gost', GostController::class)->only(['show', 'index','store','update']);
+    Route::resource('menadzer', MenadzerController::class)->only(['show', 'index','store','update']);
+    Route::resource('konobar', KonobarController::class)->only(['show', 'index','store','update']);
+    Route::resource('radnaSmena', RadnaSmenaController::class)->only(['show', 'index','store','update']);
+    Route::resource('porudzbina', PorudzbinaController::class)->only(['show', 'index','store','update','destroy']);
+    Route::resource('stavkaPorudzbine', StavkaPorudzbineController::class)->only(['show', 'index','store','destroy']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/menadzerRegister', [MenadzerAuthController::class, 'register']);
+    Route::post('/konobarRegister', [KonobarAuthController::class, 'register']);
+
+});
