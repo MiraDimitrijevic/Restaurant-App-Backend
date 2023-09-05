@@ -30,6 +30,9 @@ class Porudzbina extends Model
         return $this->belongsTo(RadnaSmena::class, 'radna_smena_id' );
     }
 
+
+
+
     public function stavkePorudzbine(){
         return $this->hasMany(StavkaPorudzbine::class);
     }

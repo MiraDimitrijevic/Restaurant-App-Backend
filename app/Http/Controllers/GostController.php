@@ -87,20 +87,15 @@ class GostController extends Controller
      */
     public function update(Request $request, Gost $gost)
     {
-        $validator = Validator::make($request->all() , [
-             'imaPopust'=> 'boolean|required',
-             'zaduzenje'=>'required|numeric',
-          ]);
-  
-            
-          if ($validator->fails())
-              return response()->json($validator->errors());
+        if($gost->zaduzenje>0){
+            return response()->json(['success'=>false]);
+        } else {
+            $gost->imaPopust=true;
+            $gost->save();
+ return response()->json(['success'=>true, 'id'=> $gost->id,'gost'=> new GostResource($gost) ]);
 
-              $gost->imaPopust=$request->imaPopust;
-              $gost->zaduzenje=$request->zaduzenje;
-              $gost->save();
+        }
 
-              return response()->json(['success'=>true, 'id'=> $gost->id,'gost'=> new GostResource($gost) ]);
 
 
     }

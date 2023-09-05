@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Porudzbina;
 use App\Models\StavkaMenija;
 use App\Models\StavkaPorudzbine;
+use App\Models\Gost;
 use Illuminate\Http\Request;
 use App\Http\Resources\PorudzbinaResource;
 use Illuminate\Support\Facades\Validator;
@@ -43,6 +44,8 @@ class PorudzbinaController extends Controller
     public function store(Request $request)
     {
          $ukupnaCena=0;
+         $saPopustom=false;
+         $popust=0;
          foreach($request->stavke as $stavka ){
         $validator = Validator::make($stavka , [
             'kolicina'=>'required|numeric|min:0|max:1000',
@@ -59,16 +62,22 @@ class PorudzbinaController extends Controller
         $validator = Validator::make($request->all() , [
             'gost_id'=>'required'
         ]);
-
-        
-        if ($validator->fails())
+$gost=Gost::find($request->gost_id);
+if($gost->imaPopust==true){
+    $ukupnaCena*=0.8;
+    $saPopustom=true;
+    $popust=20;
+}
+ if ($validator->fails())
             return response()->json($validator->errors());
 
 
             $porudzbina=Porudzbina::create([
                 'ukupnaCena'=>$ukupnaCena,
                 'datumVremePorudzbine'=>now(),
-                'gost_id'=>$request->gost_id
+                'gost_id'=>$request->gost_id,
+                'saPopustom'=>$saPopustom,
+                $popust=>$popust
 
             ]);
 
@@ -78,7 +87,8 @@ class PorudzbinaController extends Controller
                     'kolicina'=>$stavka["kolicina"],
                     'porudzbina_id'=>$porudzbina->id,
                     'stavka_menija_id'=>$stavka["stavka_menija_id"],
-                    'iznos'=>$stavka["iznos"]
+                    'iznos'=>$stavka["iznos"],
+                    
                     
                 ]);
             }
@@ -120,23 +130,19 @@ class PorudzbinaController extends Controller
     {
         $validator = Validator::make($request->all() , [
             'konobar_id'=>'required',
-            'radna_smena_id'=>'required',
-            'saPopustom'=>'required|boolean',
-            'popust'=>'required|numeric|min:0|max:100'
-            
+           // 'radna_smena_id'=>'required',
             
         ]);
-
-        
-        if ($validator->fails())
+  if ($validator->fails())
             return response()->json($validator->errors());
-
-            $porudzbina->ukupnaCena=$porudzbina->ukupnaCena-$porudzbina->ukupnaCena*$request->popust;
+        if($porudzbina->ukupnaCena>$request->iznos){
+            $gost=Gost::find($porudzbina->gost_id);
+            $gost->zaduzenje=$porudzbina->ukupnaCena-$request->iznos;
+            $gost->save();
+        }
             $porudzbina->konobar_id=$request->konobar_id;
-            $porudzbina->radna_smena_id=$request->radna_smena_id;
+           // $porudzbina->radna_smena_id=$request->radna_smena_id;
             $porudzbina->placeno=true;
-            $porudzbina->saPopustom=$request->saPopustom;
-            $porudzbina->popust=$request->popust;
             $porudzbina->save();
 
             return response()->json(['success'=>true, 'id'=> $porudzbina->id,'porudzbina'=> new PorudzbinaResource($porudzbina) ]);

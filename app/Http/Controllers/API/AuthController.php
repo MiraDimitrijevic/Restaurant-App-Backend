@@ -35,17 +35,17 @@ class AuthController extends Controller
         if($user->userType=='g'){
         $gost=Gost::where('user_id', $user->id)->firstOrFail();
         return response()
-        ->json(['success'=>true,'userType'=>$user->userType,'user_id'=>$user->id, 'user'=>$user, 'gost'=>$gost, 'access_token' => $token, 'token_type' => 'Bearer',]);
+        ->json(['success'=>true,'userType'=>$user->userType,'user_id'=>$user->id, 'user'=>$user, 'ostalo'=>$gost, 'access_token' => $token, 'token_type' => 'Bearer',]);
       }
         elseif($user->userType=='m'){
           $menadzer=Menadzer::where('user_id', $user->id)->firstOrFail();
           return response()
-          ->json(['success'=>true,'userType'=>$user->userType,'user_id'=>$user->id, 'user'=>$user, 'menadzer'=>$menadzer, 'access_token' => $token, 'token_type' => 'Bearer',]);
+          ->json(['success'=>true,'userType'=>$user->userType,'user_id'=>$user->id, 'user'=>$user, 'ostalo'=>$menadzer, 'access_token' => $token, 'token_type' => 'Bearer',]);
         }
         elseif($user->userType=='k'){
           $konobar=Konobar::where('user_id', $user->id)->firstOrFail();
           return response()
-          ->json(['success'=>true,'userType'=>$user->userType,'user_id'=>$user->id, 'user'=>$user, 'konobar'=>$konobar, 'access_token' => $token, 'token_type' => 'Bearer',]);
+          ->json(['success'=>true,'userType'=>$user->userType,'user_id'=>$user->id, 'user'=>$user, 'ostalo'=>$konobar, 'access_token' => $token, 'token_type' => 'Bearer',]);
         }
         else  
         return response()

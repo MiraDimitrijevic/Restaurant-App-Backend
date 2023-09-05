@@ -20,7 +20,6 @@ class Gost extends Authenticatable
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
     }
-//Otkomentarii nakon sto napravis klasu i ne mora putanja do nje jer su u istom folderu
    public function porudzbinas(){
         return $this->hasMany(Porudzbina::class);
     }

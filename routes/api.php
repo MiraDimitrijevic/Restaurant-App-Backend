@@ -15,6 +15,9 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\GostAuthController;
 use App\Http\Controllers\MenadzerAuthController;
 use App\Http\Controllers\KonobarAuthController;
+use App\Http\Controllers\PorudzbinaStavkeController;
+
+
 
 
 
@@ -55,5 +58,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/menadzerRegister', [MenadzerAuthController::class, 'register']);
     Route::post('/konobarRegister', [KonobarAuthController::class, 'register']);
+    Route::get('porudzbina/{id}/stavkePorudzbine', [PorudzbinaStavkeController::class, 'index'])->name('porudzbina.stavkePorudzbine.index');
+
 
 });

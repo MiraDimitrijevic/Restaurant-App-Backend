@@ -76,9 +76,9 @@ class UserController extends Controller
             'ime'=> 'string|required|max:30',
             'prezime'=> 'string|required|max:40',
             'godinaRodjenja'=>'required|digits:4',
-            'email' => 'required|string|max:40|email|unique:users',
-            'korisnickoIme'=>'required|string|max:40|unique:users',
-            'brojTelefona'=>'required|string|unique:users|starts_with:06|digits_between:9,11',
+            'email' => 'required|string|max:40|email',
+            'korisnickoIme'=>'required|string|max:40',
+            'brojTelefona'=>'required|string|starts_with:06|digits_between:9,11',
             'password' => array('required','regex:/(^([a-zA-z]+)(\d+)?$)/','string','min:8'),
             
         ]);
@@ -90,8 +90,11 @@ class UserController extends Controller
             $user->ime=$request->ime;
             $user->prezime=$request->prezime;
             $user->godinaRodjenja=$request->godinaRodjenja;
+            if($user->email != $request->email)
             $user->email=$request->email;
+            if($user->korisnickoIme != $request->korisnickoIme)
             $user->korisnickoIme=$request->korisnickoIme;
+            if($user->brojTelefona != $request->brojTelefona)
             $user->brojTelefona=$request->brojTelefona;
             $user->password=$request->password;
 

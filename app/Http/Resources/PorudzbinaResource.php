@@ -31,7 +31,6 @@ class PorudzbinaResource extends JsonResource
             'konobar'=>new KonobarResource($this->resource->konobar),
             'radnaSmena'=>new RadnaSmenaResource($this->resource->radnaSmena),
 
-
         ];
 
     }
