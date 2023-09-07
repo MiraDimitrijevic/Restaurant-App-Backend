@@ -12,10 +12,6 @@ class Menadzer extends Authenticatable
     use HasFactory;
     protected $fillable = [
         'datumZaposlenja',
-        'plata',
-        'napomena',
-        'naOdmoru',
-        'naBolovanju',
         'user_id',
     ];
 

@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 
 class UserController extends Controller
@@ -17,7 +18,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return ['users'=> UserResource::collection(User::get())];
+
     }
 
     /**
@@ -96,7 +98,8 @@ class UserController extends Controller
             $user->korisnickoIme=$request->korisnickoIme;
             if($user->brojTelefona != $request->brojTelefona)
             $user->brojTelefona=$request->brojTelefona;
-            $user->password=$request->password;
+            $user->password= Hash::make($request->password);
+
 
             $user->save();
 

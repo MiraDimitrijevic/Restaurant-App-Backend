@@ -88,24 +88,7 @@ class MenadzerController extends Controller
      */
     public function update(Request $request, Menadzer $menadzer)
     {
-        $validator = Validator::make($request->all() , [
-            'plata'=>'required|numeric|min:43000|max:200000',
-            'naOdmoru'=>'required|boolean',
-            'naBolovanju'=>'required|boolean'
-            
-        ]);
-        if ($validator->fails())
-        return response()->json($validator->errors());
-
-        $menadzer->plata=$request->plata;
-        $menadzer->napomena=$request->napomena;
-        $menadzer->naOdmoru=$request->naOdmoru;
-        $menadzer->naBolovanju=$request->naBolovanju;
-
-        $menadzer->save();
-
-        return response()->json(['success'=>true, 'id'=> $menadzer->id,'menadzer'=> new MenadzerResource($menadzer) ]);
-
+         
 
     }
 

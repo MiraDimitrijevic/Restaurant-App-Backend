@@ -22,11 +22,6 @@ class MenadzerResource extends JsonResource
         return [
             'id'=>$this->resource->id,
             'datumZaposlenja'=>$this->resource->datumZaposlenja,
-            'plata'=>$this->resource->plata,
-            'napomena'=>$this->resource->napomena,
-            'naOdmoru'=>$this->resource->naOdmoru,
-            'naBolovanju'=>$this->resource->naBolovanju,
-
             'licniPodaci'=>new UserResource($this->resource->user)
 
             

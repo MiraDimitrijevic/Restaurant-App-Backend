@@ -22,12 +22,6 @@ class KonobarResource extends JsonResource
         return [
             'id'=>$this->resource->id,
             'datumZaposlenja'=>$this->resource->datumZaposlenja,
-            'plata'=>$this->resource->plata,
-            'napomena'=>$this->resource->napomena,
-            'naOdmoru'=>$this->resource->naOdmoru,
-            'naBolovanju'=>$this->resource->naBolovanju,
-            'nadredjeni'=>new MenadzerResource($this->resource->nadredjeni),
-
             'licniPodaci'=>new UserResource($this->resource->user)
 
             

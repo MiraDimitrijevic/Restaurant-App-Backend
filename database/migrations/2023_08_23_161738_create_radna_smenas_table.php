@@ -17,12 +17,11 @@ class CreateRadnaSmenasTable extends Migration
             $table->id();
             $table->enum('smena', array('prva','druga'));
             $table->date('datum');
-            $table->text('napomena')->nullable();
             $table->double('ukupanPromet')->default(0);
             $table->foreignId('konobar_id');
             $table->timestamps();
 
-            $table->unique(array('id','konobar_id'));
+            $table->unique(array('smena','datum'));
 
         });
     }

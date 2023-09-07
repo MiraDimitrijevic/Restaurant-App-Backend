@@ -12,12 +12,7 @@ class Konobar extends Authenticatable
     use HasFactory;
     protected $fillable = [
         'datumZaposlenja',
-        'plata',
-        'napomena',
-        'naOdmoru',
-        'naBolovanju',
         'user_id',
-        'nadredjeni_id'
     ];
 
     public function user(){
@@ -32,7 +27,4 @@ class Konobar extends Authenticatable
         return $this->hasMany(Porudzbina::class);
     }
 
-    public function nadredjeni(){
-        return $this->belongsTo(Menadzer::class, 'nadredjeni_id');
-    }
 }

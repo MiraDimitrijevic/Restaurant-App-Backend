@@ -48,7 +48,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
     Route::resource('stavkaMenija', StavkaMenijaController::class)->only(['show', 'index','update', 'store','destroy']);
     Route::resource('vrstaStavkeMenija', VrstaStavkeMenijaController::class)->only(['show', 'index']);
-    Route::resource('user', UserController::class)->only(['show', 'update']);
+    Route::resource('user', UserController::class)->only(['index', 'show', 'update']);
     Route::resource('gost', GostController::class)->only(['show', 'index','store','update']);
     Route::resource('menadzer', MenadzerController::class)->only(['show', 'index','store','update']);
     Route::resource('konobar', KonobarController::class)->only(['show', 'index','store','update']);

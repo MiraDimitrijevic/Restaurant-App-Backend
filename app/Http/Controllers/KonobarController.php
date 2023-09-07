@@ -90,25 +90,6 @@ class KonobarController extends Controller
      */
     public function update(Request $request, Konobar $konobar)
     {
-        $validator = Validator::make($request->all() , [
-            'plata'=>'required|numeric|min:43000|max:200000',
-            'naOdmoru'=>'required|boolean',
-            'naBolovanju'=>'required|boolean',
-            'nadredjeni_id'=>'required'
-            
-        ]);
-        if ($validator->fails())
-        return response()->json($validator->errors());
-
-        $konobar->plata=$request->plata;
-        $konobar->napomena=$request->napomena;
-        $konobar->naOdmoru=$request->naOdmoru;
-        $konobar->naBolovanju=$request->naBolovanju;
-        $konobar->nadredjeni_id=$request->nadredjeni_id;
-
-        $konobar->save();
-
-        return response()->json(['success'=>true, 'id'=> $konobar->id,'konobar'=> new KonobarResource($konobar) ]);
     }
 
     /**
