@@ -81,7 +81,7 @@ class RadnaSmenaController extends Controller
         $smenaPor='druga';
 
         if(($datumPor==$currentDate && $smenaPor==$smena && $vremePor>$pocetakPrveSmene ) 
-        || ($datumPor==$tomorrowDate && $smenaPor==$smena && $vremePor<$pocetakPrveSmene )  ){
+        || (($datumPor==$yesterdayDate || $datumPor==$currentDate) && $smenaPor=='druga' && $smena=='druga' && $currentTime<$pocetakPrveSmene)  ){
             $ukupanPromet+=$porudzbina->ukupnaCena;
             $stavke=StavkaPorudzbine::get()->where('porudzbina_id', $porudzbina->id);
             foreach($stavke as $stavka){
@@ -91,12 +91,10 @@ class RadnaSmenaController extends Controller
         }
        }
 
-       if($currentTime<$pocetakPrveSmene){
-        $currentDate=$yesterdayDate;
-         }
+
      $rsmena=RadnaSmena::create([
                 'smena'=>$smena,
-                'datum'=>$currentDate,
+                'datum'=>now(),
                 'konobar_id'=>$request->konobar_id,
                  'ukupanPromet'=>$ukupanPromet
             ]);
