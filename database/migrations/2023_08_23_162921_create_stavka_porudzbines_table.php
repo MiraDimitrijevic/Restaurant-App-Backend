@@ -18,7 +18,6 @@ class CreateStavkaPorudzbinesTable extends Migration
             $table->foreignId('porudzbina_id');
             $table->foreignId('stavka_menija_id');
             $table->double('kolicina');
-            $table->double('iznos');
             $table->timestamps();
 
             $table->unique(array('id','porudzbina_id'));

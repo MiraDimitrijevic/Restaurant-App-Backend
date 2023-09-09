@@ -52,13 +52,13 @@ class StavkaPorudzbineController extends Controller
             return response()->json($validator->errors());
 
             $stavkaMenija=StavkaMenija::find($request->stavka_menija_id);
-            $iznos=$stavkaMenija->cena*$request->kolicina;
+          //  $iznos=$stavkaMenija->cena*$request->kolicina;
 
             $stavka=StavkaPorudzbine::create([
                 'kolicina'=>$request->kolicina,
                 'porudzbina_id'=>$request->porudzbina_id,
                 'stavka_menija_id'=>$request->stavka_menija_id,
-                'iznos'=>$iznos
+              //  'iznos'=>$iznos
                 
             ]);
             return response()->json(['success'=>true,'stavkaPorudzbine'=> new StavkaPorudzbineResource($stavka)]);

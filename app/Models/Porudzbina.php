@@ -12,11 +12,11 @@ class Porudzbina extends Model
         'ukupnaCena',
         'placeno',
         'saPopustom',
-        'popust',
+       // 'popust',
         'datumVremePorudzbine',
         'konobar_id',
         'gost_id',
-        'radna_smena_id'
+       // 'radna_smena_id'
     ];
 
     public function konobar(){
@@ -26,9 +26,7 @@ class Porudzbina extends Model
     public function gost(){
         return $this->belongsTo(Gost::class, 'gost_id' );
     }
-    public function radnaSmena(){
-        return $this->belongsTo(RadnaSmena::class, 'radna_smena_id' );
-    }
+
 
 
 

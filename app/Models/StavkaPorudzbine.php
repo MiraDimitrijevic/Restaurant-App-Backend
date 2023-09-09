@@ -12,7 +12,7 @@ class StavkaPorudzbine extends Model
         'porudzbina_id',
         'stavka_menija_id',
         'kolicina',
-        'iznos',
+       // 'iznos',
     ];
 
     public function porudzbina(){

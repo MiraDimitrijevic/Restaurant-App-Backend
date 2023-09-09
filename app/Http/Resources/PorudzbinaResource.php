@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\KonobarResource;
 use App\Http\Resources\GostResource;
-use App\Http\Resources\RadnaSmenaResource;
+//use App\Http\Resources\RadnaSmenaResource;
 
 
 class PorudzbinaResource extends JsonResource
@@ -25,11 +25,11 @@ class PorudzbinaResource extends JsonResource
             'ukupnaCena'=>$this->resource->ukupnaCena,
             'placeno'=>$this->resource->placeno,
             'saPopustom'=>$this->resource->saPopustom,
-            'popust'=>$this->resource->popust,
+          //  'popust'=>$this->resource->popust,
             'datumVremePorudzbine'=>$this->resource->datumVremePorudzbine,
             'gost'=>new GostResource($this->resource->gost),
             'konobar'=>new KonobarResource($this->resource->konobar),
-            'radnaSmena'=>new RadnaSmenaResource($this->resource->radnaSmena),
+           // 'radnaSmena'=>new RadnaSmenaResource($this->resource->radnaSmena),
 
         ];
 

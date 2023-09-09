@@ -22,7 +22,7 @@ class StavkaPorudzbineResource extends JsonResource
         return [
             'id'=>$this->resource->id,
             'kolicina'=>$this->resource->kolicina,
-            'iznos'=>$this->resource->iznos,
+         //   'iznos'=>$this->resource->iznos,
             'porudzbina'=>new PorudzbinaResource($this->resource->porudzbina),
             'stavkaMenija'=>new StavkaMenijaResource($this->resource->stavkaMenija),
             

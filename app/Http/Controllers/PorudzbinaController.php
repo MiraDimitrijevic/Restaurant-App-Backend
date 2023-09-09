@@ -45,7 +45,7 @@ class PorudzbinaController extends Controller
     {
          $ukupnaCena=0;
          $saPopustom=false;
-         $popust=0;
+       //  $popust=0;
          foreach($request->stavke as $stavka ){
         $validator = Validator::make($stavka , [
             'kolicina'=>'required|numeric|min:0|max:1000',
@@ -55,8 +55,9 @@ class PorudzbinaController extends Controller
             return response()->json($validator->errors());
             $stavkaMenija=StavkaMenija::find($stavka["stavka_menija_id"]);
             $iznos=$stavkaMenija->cena*$stavka["kolicina"];
-            $stavka["iznos"]=$iznos;
-            $ukupnaCena+=$stavka["iznos"];
+           // $stavka["iznos"]=$iznos;
+          //  $ukupnaCena+=$stavka["iznos"];
+          $ukupnaCena+=$iznos;
          }
 
         $validator = Validator::make($request->all() , [
@@ -66,7 +67,7 @@ $gost=Gost::find($request->gost_id);
 if($gost->imaPopust==true){
     $ukupnaCena*=0.8;
     $saPopustom=true;
-    $popust=20;
+    //$popust=20;
 }
  if ($validator->fails())
             return response()->json($validator->errors());
@@ -77,7 +78,7 @@ if($gost->imaPopust==true){
                 'datumVremePorudzbine'=>now(),
                 'gost_id'=>$request->gost_id,
                 'saPopustom'=>$saPopustom,
-                $popust=>$popust
+              //  $popust=>$popust
 
             ]);
 
@@ -87,7 +88,7 @@ if($gost->imaPopust==true){
                     'kolicina'=>$stavka["kolicina"],
                     'porudzbina_id'=>$porudzbina->id,
                     'stavka_menija_id'=>$stavka["stavka_menija_id"],
-                    'iznos'=>$stavka["iznos"],
+                  //  'iznos'=>$stavka["iznos"],
                     
                     
                 ]);
